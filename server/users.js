@@ -1,12 +1,13 @@
 const users = [];
 
 const addUser = ({ id, name, room }) => {
-  name = name.trim().toLowercase();
-  room = room.trim().toLowercase();
+  name = name.trim().toLowerCase();
+  room = room.trim().toLowerCase();
 
   const extingUser = users.find(
     (user) => user.room === room && user.name === name
   );
+  if (!name || !room) return { error: "Username and room are required." };
 
   if (extingUser) {
     return { error: "Username is already taken!" };
@@ -14,6 +15,7 @@ const addUser = ({ id, name, room }) => {
 
   const user = { id, name, room };
   users.push(user);
+  return { user };
 };
 
 const removeUser = (id) => {
